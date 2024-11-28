@@ -101,7 +101,35 @@ std::cout << std::endl
 
 <h2 id="SFT">Search From The Tree</h2>
 </p>
-<p align="center">Add an explanation of how to search for members based on different criteria (e.g., name, relationship, etc.).</p>
+<p align="center">The function has almost the same properties as the **Delete Function ** but this manage 3 parameters to find the member which those are </p>
+<p align="center"><img width=200 height=200 src="https://github.com/diegoschavez/practica_readme/blob/main/PED/9.png?raw=true" alt="Family Tree Visualization"></p>
+<p>Making a loop to search the value matching with the characters that the user wrote has the same search as the option of **Last Name**</p>
+
+```C++
+std::vector<Node *> subVector;
+
+  for (auto &element : inorderVector) {
+    if (element->data.first_name == targetMember.first_name) {
+      subVector.push_back(element);
+    }
+  }
+
+  std::sort(inorderVector.begin(), inorderVector.end());
+  return subVector;
+```
+<p>The search by ID is different, it has an iterator to find all the data that matches with the number also has a pointer to find the exact value from the right structure and then shows the Data conected to that ID</p>
+
+```C++
+  auto it = std::find_if(
+      inorderVector.begin(), inorderVector.end(),
+      [&](Person &currentNode) { return currentNode.id == targetID; });
+
+  if (it == inorderVector.end()) {
+    return {};
+  }
+
+  return *it;
+```
 
 <p><a href="#MM">Back to main menu</a></p>
 
@@ -109,9 +137,7 @@ std::cout << std::endl
 
 <h2 id="IU">Family Tree Visualization</h2>
 <p>Space to explain the family tree visualization feature.</p>
-<p align="center">
-    <!-- Add your image here -->
-    <img width=400 height=600 src="image_url_here" alt="Family Tree Visualization">
+<p align="center"> <img width=300 height=300 src="" alt="Family Tree Visualization">
 </p>
 <p align="center">Explain how the family tree is visualized and any interactive features (e.g., zooming, expanding branches).</p>
 
