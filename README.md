@@ -38,6 +38,7 @@
 <p>This Function uses 2 methods to determine the way to delete the data on the tree, once you see the tree info you will see a new menu</p><p align="center"><img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/7.png?raw=true" alt="Delete Member">
 </p>
 <p align="center">The SubTree delete has the particularity that they will try first to find the Id with the main root on that tree and then delete both parents</p>
+
 ``` C++
 std::cout << std::endl
                         << kRed << "1. Delete SubTree" << kReset << std::endl
@@ -97,6 +98,7 @@ std::cout << std::endl
 <p align="center">The function has almost the same properties as the **Delete Function ** but this manage 3 parameters to find the member which those are </p>
 <p align="center"><img width=200 height=200 src="https://github.com/diegoschavez/practica_readme/blob/main/PED/9.png?raw=true" alt="Family Tree Visualization"></p>
 <p>Making a loop to search the value matching with the characters that the user wrote and has the same input as the function  **Fin by the Last Name**</p>
+
 ```C++
 std::vector<Node *> subVector;
 
