@@ -23,39 +23,21 @@
 <p align ="Center">Use the command **cd \name of the folder** to surf on your files and find the one who has the repository and then write the next lines to prepare the exportable file and then execute</p><p align = "center"><img width="600" height="200" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/3.png?raw=true"</img></p>
 <p align ="Center">The first thing to access to the code is create the main root: First, Last name and gender the base for the tree with the ID and then you will access to the main project</p><p align = "center"><img width="350" height="350" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/4.png?raw=true"</img></p><p><a href ="#MM">Back main menu</a></p>
 <br>
-<h2 id = "AM">Add The Member</h2>This Function takes the data from the current user and will insert on the sub tree selected
 
-```C++
-void InsertFamilyMember(Tree *&root, int targetPosition, Person newMember) {
-  Tree *subtree = new Tree();
-  subtree->root = root->findSubTree(targetPosition);
-  if (subtree->root == nullptr) {
-    std::cout << std::endl
-              << "\x1b[31mMember with id: " << targetPosition
-              << " not found\x1b[0m" << std::endl
-              << std::endl;
-    return;
-  }
-  if ((newMember.gender == 'm') && (subtree->root->data.father != -1)) {
-    std::cout << std::endl
-              << "\x1b[33mThis member already has a father\x1b[0m" << std::endl
-              << std::endl;
-    return;
-  }
-  if ((newMember.gender == 'f') && (subtree->root->data.mother != -1)) {
-    std::cout << std::endl
-              << "\x1b[33mThis member already has a mother\x1b[0m" << std::endl
-              << std::endl;
-    return;
-  }
-  if (subtree == nullptr) {
-    std::cout << "\x1b[31mTarget family member not found\x1b[0m" << std::endl;
-    return;
-  }
-//once they found the subtree and confirm there is no parents counts 1 on the ID
-  root->setLastMember(root->getLastMember() + 1);
-  newMember.id = root->getLastMember();
-  subtree->insert(newMember);
-}
+<h2 id = "AM">Add The Member</h2>This Function takes the data from the current user and will insert on the sub tree selected <p align = "center">
+<img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/6.png?raw=true"</img></p>
+<p align = "center">The Functions shows you the current tree and takes the value from the member with the **ID** to merge the two members and compare if there is already a member on the subtree (as for example mother "f" or father "m") or not in order to add the new family member</p>
+
+``` C++
+		std::cout << std::endl
+                  << kGreen << "|-- 1. Insert family member" << kReset
+                  << std::endl
+                  << std::endl;
+        root->Print2D();
+        target = GetTargetIDFromKeyBoard();
+        std::cout << std::endl;
+        currentMember = CreateMemberFromKeyBoard();
+        InsertFamilyMember(root, target, currentMember);
+        root->Print2D();
 ```
 
