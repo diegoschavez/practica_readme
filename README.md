@@ -11,11 +11,11 @@
 <p align = "center"><img width="300" height="300" src="https://media.istockphoto.com/id/1392517869/es/vector/%C3%A1rbol-geneal%C3%B3gico-familiar-padres-y-abuelos-ni%C3%B1os-genealog%C3%ADa-pedigr%C3%AD-concepto-geneal%C3%B3gico.jpg?s=612x612&w=0&k=20&c=1O8pbJwhaxkXlOYx-z_JacOTEeOGcE72bepjIeofLyY="></img></p><h2 id = "MM">Main Menu</h2>
 <li><a href ="#RC">Run the Code</a></li>
 <li><a href ="#AM">Add Member</a></li>
-<li><a href ="#IE">Import and Export</a></li>
 <li><a href ="#DM">Delete Member</a></li>
-<li><a href ="#IU">Input Utilities</a></li>
 <li><a href ="#SFT">Search From The Tree</a></li>
-<li><a href ="#TV">Tree Visualization</a></li>
+<li><a href ="#IU">Family Tree Visualiation</a></li>
+<li><a href ="#TV">SubTree Visualization</a></li>
+<li><a href ="#IE">Import and Export</a></li>
 <br>
 <br>
 <h2 id = "RC">Run the code</h2><p align ="Center">Clone the repository and paste it on your files using git bash or powershell</p><p align = "center"><img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/1.png?raw=true"</img></p>
@@ -40,4 +40,103 @@
         InsertFamilyMember(root, target, currentMember);
         root->Print2D();
 ```
+<p><a href ="#MM">Back main menu</a></p>
 
+<h2 id="DM">Delete Member</h2>
+<p>This Function uses 2 methods to determine the way to delete the data on the tree, once you see the tree info you will see a new menu</p><p align="center"><img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/7.png?raw=true" alt="Delete Member">
+</p>
+<p align="center">The SubTree delete has the particularity that they will try first to find the Id with the main root on that tree and then delete both parents</p>
+
+``` C++
+std::cout << std::endl
+                        << kRed << "1. Delete SubTree" << kReset << std::endl
+                        << std::endl;
+              target = GetTargetIDFromKeyBoard();
+              node = root->findSubTree(target);
+              if (node) {
+                root->deleteSubTree(node);
+                std::cout << "Subtree with root ID " << target
+                          << " has been deleted" << std::endl;
+              } else {
+                std::cout << std::endl
+                          << kRed << "Subtree not found" << kReset << std::endl;
+```
+<p>Using the **Recursive Function** to determine and take both sides and making them null to delete all the conection and conecting the member if there was anyone conected to that subtree </p>
+
+``` C++
+ deleteTreeRecursive(subTreeRoot->left);
+  deleteTreeRecursive(subTreeRoot->right);
+
+  // Unlink The main tree
+  if (root == subTreeRoot) {
+    root = nullptr;  // If the main root is remove, the tree is null
+  } else {
+    Node *parent = findParent(root, subTreeRoot);
+    if (parent) {
+      if (parent->left == subTreeRoot) {
+        parent->left = nullptr;
+        parent->data.mother = -1;
+      }
+      if (parent->right == subTreeRoot) {
+        parent->right = nullptr;
+        parent->data.father = -1;
+```
+<h3>Delete Member Only </h3>
+<p>This function only deletes one member for the tree of subtree </p>
+<p align="center"><img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/8.png?raw=true" alt="Delete Member"></p>
+<p>This function only needs the ID to work and then make the reconection for the SubTree</p> 
+
+```C++
+std::cout << std::endl
+                        << kRed << "2. Delete and replace with parent" << kReset
+                        << std::endl
+                        << std::endl;
+              target = GetTargetIDFromKeyBoard();
+              root->deleteMember(target);
+              break;
+```
+<p><a href="#MM">Back to main menu</a></p>
+
+<br><br>
+
+<h2 id="SFT">Search From The Tree</h2>
+</p>
+<p align="center">Add an explanation of how to search for members based on different criteria (e.g., name, relationship, etc.).</p>
+
+<p><a href="#MM">Back to main menu</a></p>
+
+<br><br>
+
+<h2 id="IU">Family Tree Visualization</h2>
+<p>Space to explain the family tree visualization feature.</p>
+<p align="center">
+    <!-- Add your image here -->
+    <img width=400 height=600 src="image_url_here" alt="Family Tree Visualization">
+</p>
+<p align="center">Explain how the family tree is visualized and any interactive features (e.g., zooming, expanding branches).</p>
+
+<p><a href="#MM">Back to main menu</a></p>
+
+<br><br>
+
+<h2 id="TV">SubTree Visualization</h2>
+<p>Space to explain the subtree visualization feature.</p>
+<p align="center">
+    <!-- Add your image here -->
+    <img width="500" height="300" src="image_url_here" alt="SubTree Visualization">
+</p>
+<p align="center">Explain how subtrees are visualized and how you can explore specific branches of the family tree.</p>
+
+<p><a href="#MM">Back to main menu</a></p>
+
+<br><br>
+
+<h2 id="IE">Import and Export</h2>
+<p>Space to explain how to import and export family tree data.</p>
+<p align="center">
+    <!-- Add your image here -->
+    <img width="500" height="300" src="image_url_here" alt="Import and Export">
+</p>
+<p align="center">Explain the process of importing family tree data from external files and exporting the tree to various formats.</p>
+
+<p><a href="#MM">Back to main menu</a></p>
