@@ -1,12 +1,3 @@
-<h2><a></a></h2>
-<h3><a></a></h3>
-<li><a></a></li>
-<p><a></a></p>
-<p></p>
-<img></img>
-<a></a>
-
-
 <h1>Family Tree</h1><p align = "centarte">The project has the objective to shows how we can connect a object that has more that one value with the purpose of manage, add, find, print and delete the relation for each object. </p>
 <p align = "center"><img width="300" height="300" src="https://media.istockphoto.com/id/1392517869/es/vector/%C3%A1rbol-geneal%C3%B3gico-familiar-padres-y-abuelos-ni%C3%B1os-genealog%C3%ADa-pedigr%C3%AD-concepto-geneal%C3%B3gico.jpg?s=612x612&w=0&k=20&c=1O8pbJwhaxkXlOYx-z_JacOTEeOGcE72bepjIeofLyY="></img></p><h2 id = "MM">Main Menu</h2>
 <li><a href ="#RC">Run the Code</a></li>
@@ -259,12 +250,13 @@ void Tree::updateRelations() const {
 <p>This Part is when the user decide to save the Tree on a file in order to printed or used on another time the functions **Import and Export** can be posible that</p>
 <p align="center"><img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/10.png?raw=true" alt="Import and Export">
 </p>
-<p align="center">We save a file called **"FamilyTree"** with one value save it as a type FamilyTree.**csv** to save it and used it </p>
-<p align="center"><img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/11.png?raw=true" alt="Import and Export">
-</p>
-<p>The code for saving this file using the library **Fstream** and **File systme** to reach the right place to save and used</p>
+<h3>Export a Tree  </h3><p align="center">We save a file called **"FamilyTree"** with one value save it as a type FamilyTree.**csv** to save it and used it </p>
+<p align="center"><img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/11.png?raw=true" alt="Import and Export"></p>
+<p>The code for saving this file using the library **Fstream**  to reach the right place to save and used on another time</p>
 
 ```C++
+void ExportInorderPeopleFromVector(const std::string& fileName,
+                                   std::vector<Person>& personCollection) {
   std::fstream peopleFile;
   peopleFile.open(fileName, std::ios::out);
 
@@ -284,7 +276,51 @@ void Tree::updateRelations() const {
 
   peopleFile.close();
 ```
-<h3>Delete Member Only </h3>
+<h3>Import a Tree  </h3>
+<p> This function takes one of the files name and has the same type of file **.csv** to reach it on the same folder as the repository was save and **File systme** to  be possible to write the name of the file and open it </p>
+<p align="center"><img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/12.png?raw=true" alt="Import and Export"></p>
+
+<p> Opening the file and getting all the info for each data of the Structure save it counting each part </p>
+
+```C++
+void GetInorderPeopleFromFile(const std::string& fileName,
+                              std::vector<Person>& personCollection) {
+  std::fstream peopleFile;
+  peopleFile.open(fileName, std::ios::in);
+
+  if (!peopleFile.is_open()) {
+    std::cout << std::endl
+              << "\x1b[31mError trying opening this file: \x1b[0m" << fileName
+              << std::endl;
+    return;
+  }
+std::string currentLine;
+  Person currentPerson;
+  std::string auxConvertion;
+  std::cout << std::endl
+            << "\x1b[32mFile data received\x1b[0m" << std::endl
+            << std::endl;
+  while (std::getline(peopleFile, currentLine)) {
+    std::stringstream currentLineStream(currentLine);
+    std::getline(currentLineStream, auxConvertion, ',');
+    currentPerson.id = std::stoi(auxConvertion);
+    auxConvertion.clear();
+    std::getline(currentLineStream, currentPerson.first_name, ',');
+    std::getline(currentLineStream, currentPerson.last_name, ',');
+    std::getline(currentLineStream, auxConvertion, ',');
+    currentPerson.gender = auxConvertion[0];
+    auxConvertion.clear();
+    std::getline(currentLineStream, auxConvertion, ',');
+    currentPerson.father = std::stoi(auxConvertion);
+    auxConvertion.clear();
+    std::getline(currentLineStream, auxConvertion, ',');
+    currentPerson.mother = std::stoi(auxConvertion);
+    std::cout << currentPerson << std::endl;
+    personCollection.push_back(currentPerson);
+  }
+
+  peopleFile.close();
+```
 
 
 <p><a href="#MM">Back to main menu</a></p>
