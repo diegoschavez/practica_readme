@@ -28,7 +28,7 @@
 <img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/6.png?raw=true"</img></p>
 <p align = "center">The Functions shows you the current tree and takes the value from the member with the **ID** to merge the two members and compare if there is already a member on the subtree (as for example mother "f" or father "m") or not in order to add the new family member</p>
 
-``` C++
+```C++
 		std::cout << std::endl
                   << kGreen << "|-- 1. Insert family member" << kReset
                   << std::endl
@@ -40,13 +40,13 @@
         InsertFamilyMember(root, target, currentMember);
         root->Print2D();
 ```
+
 <p><a href ="#MM">Back main menu</a></p>
 
 <h2 id="DM">Delete Member</h2>
 <p>This Function uses 2 methods to determine the way to delete the data on the tree, once you see the tree info you will see a new menu</p><p align="center"><img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/7.png?raw=true" alt="Delete Member">
 </p>
 <p align="center">The SubTree delete has the particularity that they will try first to find the Id with the main root on that tree and then delete both parents</p>
-
 ``` C++
 std::cout << std::endl
                         << kRed << "1. Delete SubTree" << kReset << std::endl
@@ -81,10 +81,11 @@ std::cout << std::endl
         parent->right = nullptr;
         parent->data.father = -1;
 ```
+
 <h3>Delete Member Only </h3>
 <p>This function only deletes one member for the tree of subtree </p>
 <p align="center"><img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/8.png?raw=true" alt="Delete Member"></p>
-<p>This function only needs the ID to work and then make the reconection for the SubTree</p> 
+<p>This function only needs the ID to work and then make the reconection for the SubTree</p>
 
 ```C++
 std::cout << std::endl
@@ -95,6 +96,7 @@ std::cout << std::endl
               root->deleteMember(target);
               break;
 ```
+
 <p><a href="#MM">Back to main menu</a></p>
 
 <br><br>
@@ -103,8 +105,7 @@ std::cout << std::endl
 </p>
 <p align="center">The function has almost the same properties as the **Delete Function ** but this manage 3 parameters to find the member which those are </p>
 <p align="center"><img width=200 height=200 src="https://github.com/diegoschavez/practica_readme/blob/main/PED/9.png?raw=true" alt="Family Tree Visualization"></p>
-<p>Making a loop to search the value matching with the characters that the user wrote has the same search as the option of **Last Name**</p>
-
+<p>Making a loop to search the value matching with the characters that the user wrote and has the same input as the function  **Fin by the Last Name**</p>
 ```C++
 std::vector<Node *> subVector;
 
@@ -117,7 +118,7 @@ std::vector<Node *> subVector;
   std::sort(inorderVector.begin(), inorderVector.end());
   return subVector;
 ```
-<p>The search by ID is different, it has an iterator to find all the data that matches with the number also has a pointer to find the exact value from the right structure and then shows the Data conected to that ID</p>
+<p>The search by ID is different, it has an iterator to find all the data that matches with the number wrote it also has a pointer to find the exact value from the right structure and then shows the Data conected to that ID</p>
 
 ```C++
   auto it = std::find_if(
@@ -136,33 +137,154 @@ std::vector<Node *> subVector;
 <br><br>
 
 <h2 id="IU">Family Tree Visualization</h2>
-<p>Space to explain the family tree visualization feature.</p>
-<p align="center"> <img width=300 height=300 src="" alt="Family Tree Visualization">
-</p>
-<p align="center">Explain how the family tree is visualized and any interactive features (e.g., zooming, expanding branches).</p>
+<p>The **Vector** is the main library for showing the member in a way ordered by the ID and also respecting the rule for father o mother making it as a **for function ** to travel for all the  structure and added as the last member </p>
+
+```C++
+std::sort(personCollection.begin(), personCollection.end());
+  Person currentMember;
+  Person mother;
+  Person father;
+  // Inserts root
+  Tree *treeFromVector = new Tree(personCollection[0]);
+  int lastMember = 0;
+
+  for (size_t i = 0; i < personCollection.size(); ++i) {
+    currentMember = personCollection[i];
+    if (currentMember.father != -1) {
+      father = SearchPersonByID(personCollection, currentMember.father);
+      InsertFamilyMemberFromVector(treeFromVector, currentMember.id, father,
+                                   currentMember.father);
+    }
+    if (currentMember.mother != -1) {
+      mother = SearchPersonByID(personCollection, currentMember.mother);
+      InsertFamilyMemberFromVector(treeFromVector, currentMember.id, mother,
+                                   currentMember.mother);
+    }
+  }
+
+  if (currentMember.id > lastMember) lastMember = currentMember.id;
+  if (father.id > lastMember) lastMember = father.id;
+  if (mother.id > lastMember) lastMember = mother.id;
+  treeFromVector->setLastMember(lastMember);
+
+  return treeFromVector;
+```
+<p align="center"> This one explain the mainly  way to print and use the recursive of the father and mother to be ordered and also by the right and after calling again the functio to completed the method for the left </p>
+
+```C++
+
+	void Tree::Print2DRecursive(Node *root, int space) const {
+  if (root == nullptr) {
+    return;
+  }
+  const int kSpace = 10;
+  space += kSpace;
+
+  Print2DRecursive(root->right, space);
+  std::cout << std::endl;
+  for (int i = kSpace; i < space; i++) std::cout << "   ";
+  if (root->left != nullptr || root->right != nullptr)
+    std::cout << root->data << " <\n";
+  else
+    std::cout << root->data << "\n";
+  Print2DRecursive(root->left, space);
+```
 
 <p><a href="#MM">Back to main menu</a></p>
 
 <br><br>
 
 <h2 id="TV">SubTree Visualization</h2>
-<p>Space to explain the subtree visualization feature.</p>
-<p align="center">
-    <!-- Add your image here -->
-    <img width="500" height="300" src="image_url_here" alt="SubTree Visualization">
-</p>
-<p align="center">Explain how subtrees are visualized and how you can explore specific branches of the family tree.</p>
+<p>On the menu is called **Print Relation Between Family Members** that is used only for check the conection as a SubTree as it is a Tree for itself having the benefit when we have plenty members on the base tree. The first step is finding the level that is the sub tree to print and then use it to travel only his relation </p>
+
+```C++
+ root->Print2D();
+        root->inorderVector(inorderNodes);
+        std::cout << std::endl
+                  << "\x1b[32mFrom Member\x1b[0m" << std::endl
+                  << std::endl;
+        target = GetTargetIDFromKeyBoard();
+        subTree = new Tree();
+        subTree->root = SearchByID(inorderNodes, target);
+        // Gets name of the target son to preserve the data
+        aux_name = subTree->root->data.first_name;
+        std::cout << "Member get: " << aux_name << std::endl;
+        std::cout << std::endl
+                  << "\x1b[32mTo Member\x1b[0m" << std::endl
+                  << std::endl;
+        target = GetTargetIDFromKeyBoard();
+        currentLevel =
+            subTree->findLevel(SearchByID(inorderNodes, target)->data);
+        if (currentLevel == -1) {
+          std::cout << std::endl
+                    << "\x1b[31mNot Found\x1b[0m" << std::endl
+                    << std::endl;
+          break;
+```
+
+<p align="center">Explain how subtrees are visualized and how you can explore specific branches of the family tree and also has the function to travel for each sub level to find the one as the same as the input for the user and printed </p>
+
+```C++
+int Tree::findLevelRecursive(Node *node, const Person &value, int level) const {
+  if (node == nullptr) {
+    return -1;  // return -1 if there is no level
+  }
+
+  if (node->data == value) {
+    return level;
+  }
+
+  // Search the member on the left side.
+  int leftLevel = findLevelRecursive(node->left, value, level + 1);
+  if (leftLevel != -1) {
+    return leftLevel;
+  }
+
+  // If the code does not fin it on the left call itselft to the right 
+  return findLevelRecursive(node->right, value, level + 1);
+}
+
+// updateRelations
+void Tree::updateRelations() const {
+  updateRelationsRecursive(this->root);
+  std::cout << std::endl;
+}
+```
 
 <p><a href="#MM">Back to main menu</a></p>
 
 <br><br>
 
 <h2 id="IE">Import and Export</h2>
-<p>Space to explain how to import and export family tree data.</p>
-<p align="center">
-    <!-- Add your image here -->
-    <img width="500" height="300" src="image_url_here" alt="Import and Export">
+<p>This Part is when the user decide to save the Tree on a file in order to printed or used on another time the functions **Import and Export** can be posible that</p>
+<p align="center"><img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/10.png?raw=true" alt="Import and Export">
 </p>
-<p align="center">Explain the process of importing family tree data from external files and exporting the tree to various formats.</p>
+<p align="center">We save a file called **"FamilyTree"** with one value save it as a type FamilyTree.**csv** to save it and used it </p>
+<p align="center"><img width="500" height="300" src="https://github.com/diegoschavez/practica_readme/blob/main/PED/11.png?raw=true" alt="Import and Export">
+</p>
+<p>The code for saving this file using the library **Fstream** and **File systme** to reach the right place to save and used</p>
+
+```C++
+  std::fstream peopleFile;
+  peopleFile.open(fileName, std::ios::out);
+
+  if (!peopleFile.is_open()) {
+    std::cout << std::endl
+              << "\x1b[31mError trying opening this file: \x1b[0m" << fileName
+              << std::endl;
+    peopleFile.close();
+    return;
+  }
+
+  for (const auto& element : personCollection) {
+    peopleFile << element.id << "," << element.first_name << ","
+               << element.last_name << "," << element.gender << ","
+               << element.father << "," << element.mother << "\n";
+  }
+
+  peopleFile.close();
+```
+<h3>Delete Member Only </h3>
+
 
 <p><a href="#MM">Back to main menu</a></p>
